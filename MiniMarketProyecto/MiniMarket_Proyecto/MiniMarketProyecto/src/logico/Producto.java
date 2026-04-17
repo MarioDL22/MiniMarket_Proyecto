@@ -3,8 +3,7 @@ package logico;
 import java.time.LocalDate;
 
 public class Producto {
-	
-	private String identificador;
+
 	private String marca; 
 	private int cantidad; 
 	private float precio; 
@@ -12,16 +11,15 @@ public class Producto {
 	private LocalDate fechaExpiracion; 
 	private boolean enVenta; 
 	
-	public Producto(String identificador, String marca, int cantidad, float precio, TipoProducto tipo, LocalDate fechaExpiracion,
+	public Producto(String marca, int cantidad, float precio, TipoProducto tipo, LocalDate fechaExpiracion,
 			boolean enVenta) {
 		super();
-		this.identificador = identificador;
 		this.marca = marca;
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.tipo = tipo;
 		this.fechaExpiracion = fechaExpiracion;
-		this.enVenta = true;
+		this.enVenta = enVenta;
 	}
 
 	public String getMarca() {
@@ -70,13 +68,5 @@ public class Producto {
 
 	public void setEnVenta(boolean enVenta) {
 		this.enVenta = enVenta;
-	}
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
 	}
 }

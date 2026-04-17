@@ -1,27 +1,17 @@
 package logico;
 
 public class Persona {
-	protected String identificador; 
 	protected String nombre; 
 	protected String cedula; 
 	protected String telefono; 
 	protected String direccion;
 	
-	public Persona(String identificador, String nombre, String cedula, String telefono, String direccion) {
+	public Persona(String nombre, String cedula, String telefono, String direccion) {
 		super();
-		this.identificador = identificador;
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.telefono = telefono;
 		this.direccion = direccion;
-	}
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
 	}
 
 	public String getNombre() {
@@ -54,5 +44,7 @@ public class Persona {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
-	}
+	} 
+	
+	
 }

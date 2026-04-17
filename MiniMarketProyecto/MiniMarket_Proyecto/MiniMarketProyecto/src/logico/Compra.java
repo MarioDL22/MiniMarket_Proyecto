@@ -4,10 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Compra {
-	private String identificador; 
 	private Empleado elEmpleado;
 	private Cliente elCliente; 
-	private float subTotal; 
 	private float montoTotal; 
 	private ArrayList<Producto> losProductos; 
 	private LocalDate fechaCompra; 
@@ -15,18 +13,16 @@ public class Compra {
 	private boolean usoDelivery; 
 	private boolean credito;
 	
-	public Compra(String identificador, Empleado elEmpleado, Cliente elCliente, TipoPago pago, LocalDate fechaCompra) {
+	public Compra(Empleado elEmpleado, Cliente elCliente, float montoTotal, TipoPago pago, boolean usoDelivery, boolean credito) {
 		super();
-		this.identificador = identificador; 
 		this.elEmpleado = elEmpleado;
 		this.elCliente = elCliente;
-		this.subTotal = 0.0f;
-		this.montoTotal = 0.0f;
+		this.montoTotal = montoTotal;
 		this.losProductos = new ArrayList<Producto>();
 		this.fechaCompra = LocalDate.now();
 		this.pago = pago;
-		this.usoDelivery = false;
-		this.credito = false;
+		this.usoDelivery = usoDelivery;
+		this.credito = credito;
 	}
 
 	public Empleado getElEmpleado() {
@@ -45,14 +41,6 @@ public class Compra {
 		this.elCliente = elCliente;
 	}
 
-	public float getSubTotal() {
-		return subTotal;
-	}
-
-	public void setSubTotal(float subTotal) {
-		this.subTotal = subTotal;
-	}
-	
 	public float getMontoTotal() {
 		return montoTotal;
 	}
@@ -99,38 +87,7 @@ public class Compra {
 
 	public void setCredito(boolean credito) {
 		this.credito = credito;
-	}
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
 	} 
 	
-	public void addProductosCompra(Producto auxProducto) {
-		losProductos.add(auxProducto); 
-	}
-	
-	public float sumaPreciosProductos() {
-		float total = 0; 
-		for (Producto producto : losProductos) {
-			total += producto.getPrecio(); 
-		}
-		subTotal = total; 
-		return total; 
-	}
-	
-	public void disminuirStockProducto() {
-		for (Producto producto : losProductos) {
-			if(losProductos.contains(producto)) {
-				producto.setCantidad(producto.getCantidad() - 1);
-				if(producto.getCantidad() == 0) {
-					producto.setEnVenta(false);
-				}
-			}
-		}
-	}
 	
 }

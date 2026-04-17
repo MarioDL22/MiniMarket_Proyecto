@@ -13,11 +13,10 @@ public class Empleado extends Persona {
 	private float sueldo; 
 	private int cantHoras; 
 	private ArrayList<Compra> misVentas; 
-	private int cantVentas; 
 	
-	public Empleado(String identificador, String nombre, String cedula, String telefono, String direccion, String correo, String password,
+	public Empleado(String nombre, String cedula, String telefono, String direccion, String correo, String password,
 			String usuario, TipoRol rol, int cantHoras) {
-		super(identificador, nombre, cedula, telefono, direccion);
+		super(nombre, cedula, telefono, direccion);
 		this.correo = correo;
 		this.password = password;
 		this.usuario = usuario;
@@ -26,8 +25,7 @@ public class Empleado extends Persona {
 		this.rol = rol;
 		this.sueldo = 0.0f; 
 		this.cantHoras = cantHoras; 
-		this.misVentas = new ArrayList<Compra>(); 
-		this.cantVentas = 0; 
+		this.misVentas = misVentas; 
 	}
 
 	public String getCorreo() {
@@ -100,23 +98,7 @@ public class Empleado extends Persona {
 
 	public void setMisVentas(ArrayList<Compra> misVentas) {
 		this.misVentas = misVentas;
-	}
-
-	public int getCantVentas() {
-		return cantVentas;
-	}
-
-	public void setCantVentas(int cantVentas) {
-		this.cantVentas = cantVentas;
 	} 
 	
-	public float calcularSueldoNormal() {
-		if(rol == TipoRol.Administrador) {
-			return cantHoras * 500; 
-		}else if (rol == TipoRol.Cajero) {
-			return cantHoras * 250; 
-		}
-		
-		return cantHoras * 100; 
-	}
+	
 }
