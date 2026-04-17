@@ -272,4 +272,6 @@ public class MiniMarket {
 		elEmpleado.setSueldo(total);
 		return total; 
 	}
+	
+	// Actualizacion
 }
