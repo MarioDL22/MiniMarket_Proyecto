@@ -14,7 +14,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logico.Empleado;
 import logico.MiniMarket;
+import logico.TipoRol;
+
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
@@ -23,6 +26,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class PrincipalLogin extends JFrame {
 
@@ -31,7 +37,7 @@ public class PrincipalLogin extends JFrame {
 	private JPanel panelLogin;
 	private JPanel panelLogo;
 	private JTextField txtUsuario;
-	private JTextField textField;
+	private JPasswordField txtPassword;
 	private JButton btnAcceder;
 
 	/**
@@ -116,14 +122,19 @@ public class PrincipalLogin extends JFrame {
 		panelLogin.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setForeground(Color.BLACK);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setColumns(10);
-		textField.setBounds(28, 323, 211, 34);
-		panelLogin.add(textField);
+		txtPassword = new JPasswordField();
+		txtPassword.setForeground(Color.BLACK);
+		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtPassword.setColumns(10);
+		txtPassword.setBounds(28, 323, 211, 34);
+		panelLogin.add(txtPassword);
 		
 		btnAcceder = new JButton("Acceder");
+		btnAcceder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				accederPestana();
+			}
+		});
 		btnAcceder.setBackground(new Color(255, 51, 0));
 		btnAcceder.setFont(new Font("Sylfaen", Font.BOLD, 20));
 		btnAcceder.setForeground(new Color(255, 255, 255));
@@ -133,6 +144,80 @@ public class PrincipalLogin extends JFrame {
 		fondo.setBounds(0, 0, dim.width, dim.height - 45);
 		panelFondo.add(fondo);
 		
-		// 
+		if(MiniMarket.getInstance().getMisEmpleados().size() == 1) {
+			txtUsuario.setText("admin");
+			txtUsuario.setBackground(SystemColor.info);
+			txtPassword.setText("admin123");
+			txtPassword.setBackground(SystemColor.info);
+		}else {
+			txtUsuario.setText("");
+			txtPassword.setText("");
+		}
+		
+		getRootPane().setDefaultButton(btnAcceder);
+		ImageIcon otroIcon = new ImageIcon(getClass().getResource("/icons/id-card-icon.png")); 
+		setIconImage(otroIcon.getImage());
 	}
+	
+	private void accederPestana() {
+		String usuario = txtUsuario.getText().trim(); 
+		String password = new String(txtPassword.getPassword()).trim();
+		
+		if(usuario.isEmpty() || password.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "¡Debe llenar todos los campos para acceder!", "Error", JOptionPane.WARNING_MESSAGE);
+		}else {
+			Empleado usuarioLogueado = null; 
+			for (Empleado auxEmpleado : MiniMarket.getInstance().getMisEmpleados()) {
+				if(auxEmpleado.getMiUsuario().getUsuario().equalsIgnoreCase(usuario) && auxEmpleado.getMiUsuario().getPassword().equalsIgnoreCase(password)) {
+					usuarioLogueado = auxEmpleado; 
+				}
+			}
+			
+			if(usuarioLogueado != null) {
+				if(usuarioLogueado.getMiUsuario().isEstado() == false) {
+					JOptionPane.showMessageDialog(null, "¡Este usuario se encuentra inactivo en el sistema!" + "\nRazones: " + "\n1. Ya no trabaja para la empresa" + "\n2. No está creado en el sistema", "Aviso", JOptionPane.WARNING_MESSAGE);
+					txtUsuario.setText("");
+					txtPassword.setText("");
+				}else {
+					setVisible(false);
+					if(usuarioLogueado.getMiUsuario().getRol() == TipoRol.Administrador) {
+						
+					}else if (usuarioLogueado.getMiUsuario().getRol() == TipoRol.Cajero) {
+						
+					}else if (usuarioLogueado.getMiUsuario().getRol() == TipoRol.Delivery) {
+						
+					}
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Error de Login", JOptionPane.ERROR_MESSAGE);
+				txtPassword.setText("");
+			}
+		}
+	}
+	
+	/*public void mostrarLogin() {
+		if (panelAdmin != null) {
+			panelAdmin.setVisible(false);
+		}
+		if (panelComercial != null) {
+			panelComercial.setVisible(false);
+		}
+		if (panelTecnico != null) {
+			panelTecnico.setVisible(false);
+		}
+		if (MiniMarket.getInstance().getMisPersonas().size() == 1) {
+			txtUsuario.setText("admin");
+			txtPassword.setText("admin123");
+		} else {
+			txtUsuario.setText("");
+			txtUsuario.setBackground(Color.WHITE);
+			txtPassword.setText("");
+			txtPassword.setBackground(Color.WHITE);
+		}
+		setVisible(true);
+		getRootPane().setDefaultButton(btnAcceder);
+		getContentPane().revalidate();
+		getContentPane().repaint();
+		return; 
+	}*/
 }

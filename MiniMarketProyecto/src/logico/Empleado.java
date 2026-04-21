@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Empleado extends Persona {
 	private Usuario miUsuario; 
-	private boolean estado; 
 	private float sueldo; 
 	private int cantHoras; 
 	private ArrayList<Compra> misVentas; 
@@ -14,19 +13,10 @@ public class Empleado extends Persona {
 	public Empleado(String identificador, String nombre, String cedula, String telefono, String direccion, Usuario miUsuario, int cantHoras) {
 		super(identificador, nombre, cedula, telefono, direccion);
 		this.miUsuario = miUsuario;
-		this.estado = false;
 		this.sueldo = 0.0f;
 		this.cantHoras = cantHoras;
 		this.misVentas = new ArrayList<>();
 		this.cantVentas = 0;
-	}
-	
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
 	}
 
 	public float getSueldo() {

@@ -8,6 +8,7 @@ public class Usuario {
 	private String password; 
 	private TipoRol rol; 
 	private LocalDate fechaCreacion; 
+	private boolean estado; 
 	
 	public Usuario(String usuario, String correo, String password, TipoRol rol, LocalDate fechaCreacion) {
 		super();
@@ -16,6 +17,7 @@ public class Usuario {
 		this.password = password;
 		this.rol = rol;
 		this.fechaCreacion = LocalDate.now();
+		this.estado = false; 
 	}
 
 	public String getCorreo() {
@@ -56,5 +58,13 @@ public class Usuario {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 }
