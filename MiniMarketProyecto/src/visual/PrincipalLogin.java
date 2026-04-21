@@ -132,5 +132,7 @@ public class PrincipalLogin extends JFrame {
 		JLabel fondo = new JLabel(new ImageIcon(img)); 
 		fondo.setBounds(0, 0, dim.width, dim.height - 45);
 		panelFondo.add(fondo);
+		
+		// 
 	}
 }
