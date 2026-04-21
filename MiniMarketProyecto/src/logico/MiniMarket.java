@@ -1,7 +1,14 @@
 package logico;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 public class MiniMarket {
 	private static final long serialVersionUID = 1L;
@@ -240,7 +247,7 @@ public class MiniMarket {
 			total = subTotal + (subTotal * 0.18f); 
 			auxCompra.setMontoTotal(total);
 			
-			if(auxEmpleado.getRol() == TipoRol.Delivery) {
+			if(auxEmpleado.getMiUsuario().getRol() == TipoRol.Delivery) {
 				auxCompra.setUsoDelivery(true);
 			}else {
 				auxCompra.setUsoDelivery(false);
@@ -273,5 +280,52 @@ public class MiniMarket {
 		return total; 
 	}
 	
-	// Actualizacion
+	public static void guardarDatos() { 
+		try (FileOutputStream file = new FileOutputStream("MiniMarket_OG.dat");
+				ObjectOutputStream oos = new ObjectOutputStream(file)) {
+
+			oos.writeInt(genIdCliente);
+			oos.writeInt(genIdEmpleado);
+			oos.writeInt(genIdProducto);
+			oos.writeInt(genIdCompra);
+
+			oos.writeObject(miniMarket);
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Ocurrió un error al intentar guardar la información del sistema.\n" + e.getMessage(), "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public static void cargarDatos() {
+		try (FileInputStream file = new FileInputStream("MiniMarket_OG.dat");
+				ObjectInputStream ois = new ObjectInputStream(file)) {
+
+			genIdCliente = ois.readInt();
+			genIdEmpleado = ois.readInt();
+			genIdProducto = ois.readInt();
+			genIdCompra = ois.readInt();
+
+			miniMarket = (MiniMarket) ois.readObject();
+
+		} catch (FileNotFoundException e) {
+			miniMarket = new MiniMarket();
+			miniMarket.crearAdminPorDefecto();
+			JOptionPane.showMessageDialog(null, 
+					"Bienvenido al sistema. Se ha creado el Administrador Maestro por defecto.\n\nUsuario: admin\nContraseña: admin123\n", 
+					"Primera Ejecución", 
+					JOptionPane.INFORMATION_MESSAGE);
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, 
+					"El archivo de datos está corrupto o hubo un problema al leerlo.\n" + e.getMessage(), 
+					"Error de Carga", 
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void crearAdminPorDefecto() {
+		Usuario userAdmin = new Usuario("admin", "admin123", "admin@altice.do", TipoRol.Administrador, LocalDate.now());
+		Empleado primero = new Empleado("ADM-" + genIdEmpleado, "Administrador Supremo", "000-000000000-0", "000-000-0000", "N/A", userAdmin, 0); 
+		ingresarEmpleado(primero);
+	}
 }

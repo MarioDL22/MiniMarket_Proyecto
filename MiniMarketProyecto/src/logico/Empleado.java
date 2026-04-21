@@ -4,78 +4,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Empleado extends Persona {
-	private String correo; 
-	private String password; 
-	private String usuario; 
-	private LocalDate fechaCreacion; 
+	private Usuario miUsuario; 
 	private boolean estado; 
-	private TipoRol rol;
 	private float sueldo; 
 	private int cantHoras; 
 	private ArrayList<Compra> misVentas; 
 	private int cantVentas; 
 	
-	public Empleado(String identificador, String nombre, String cedula, String telefono, String direccion, String correo, String password,
-			String usuario, TipoRol rol, int cantHoras) {
+	public Empleado(String identificador, String nombre, String cedula, String telefono, String direccion, Usuario miUsuario, int cantHoras) {
 		super(identificador, nombre, cedula, telefono, direccion);
-		this.correo = correo;
-		this.password = password;
-		this.usuario = usuario;
-		this.fechaCreacion = LocalDate.now();
+		this.miUsuario = miUsuario;
 		this.estado = false;
-		this.rol = rol;
-		this.sueldo = 0.0f; 
-		this.cantHoras = cantHoras; 
-		this.misVentas = new ArrayList<Compra>(); 
-		this.cantVentas = 0; 
+		this.sueldo = 0.0f;
+		this.cantHoras = cantHoras;
+		this.misVentas = new ArrayList<>();
+		this.cantVentas = 0;
 	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public LocalDate getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(LocalDate fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
+	
 	public boolean isEstado() {
 		return estado;
 	}
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
-	}
-
-	public TipoRol getRol() {
-		return rol;
-	}
-
-	public void setRol(TipoRol rol) {
-		this.rol = rol;
 	}
 
 	public float getSueldo() {
@@ -109,11 +60,19 @@ public class Empleado extends Persona {
 	public void setCantVentas(int cantVentas) {
 		this.cantVentas = cantVentas;
 	} 
+
+	public Usuario getMiUsuario() {
+		return miUsuario;
+	}
+
+	public void setMiUsuario(Usuario miUsuario) {
+		this.miUsuario = miUsuario;
+	}
 	
 	public float calcularSueldoNormal() {
-		if(rol == TipoRol.Administrador) {
+		if(miUsuario.getRol() == TipoRol.Administrador) {
 			return cantHoras * 500; 
-		}else if (rol == TipoRol.Cajero) {
+		}else if (miUsuario.getRol() == TipoRol.Cajero) {
 			return cantHoras * 250; 
 		}
 		
