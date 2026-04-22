@@ -470,7 +470,6 @@ public class VistaAdministrador extends JDialog {
 			txtEmpleado.setFont(new Font("Sylfaen", Font.BOLD, 15));
 			txtEmpleado.setForeground(new Color(255, 255, 255));
 			txtEmpleado.setColumns(10);
-			//txtEmpleado.setText(elEmpleado.getIdentificador());
 			txtEmpleado.setFocusable(false);
 			txtEmpleado.setBorder(null);
 		}
