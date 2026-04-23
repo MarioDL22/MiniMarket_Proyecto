@@ -28,7 +28,7 @@ import logico.Empleado;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 
-public class VistaAdministrador extends JDialog {
+public class VistaCajero extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private Dimension dim; 
@@ -51,17 +51,12 @@ public class VistaAdministrador extends JDialog {
 	private JPanel panelGestionCliente;
 	private JPanel subPanelGestionCliente;
 	private JButton btnGestionarClientes;
-	private JPanel panelGestionEmpleados;
-	private JPanel subPanelGestionEmpleados;
-	private JButton btnGestionarEmpleados;
 	private JPanel panelAlmacen;
 	private JPanel subPanelAlmacen;
 	private JButton btnGestionAlmacen;
 	private JPanel panelVenta;
 	private JPanel subPanelVenta;
 	private JButton btnRealizarVenta;
-	private JPanel panelRespaldoDatos;
-	private JPanel subPanelRespaldo;
 	private JPanel panelVerVentasDelivery;
 	private JPanel panel_2;
 	private JTextField txtMenAdministrador;
@@ -71,7 +66,7 @@ public class VistaAdministrador extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			VistaAdministrador dialog = new VistaAdministrador();
+			VistaCajero dialog = new VistaCajero();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -82,8 +77,8 @@ public class VistaAdministrador extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VistaAdministrador() {
-		setTitle("Vista Administrador");
+	public VistaCajero() {
+		setTitle("Vista Cajero");
 		setBounds(100, 100, 450, 300);
 		dim = getToolkit().getScreenSize(); 
 		setSize(dim.width, dim.height - 45);
@@ -173,7 +168,7 @@ public class VistaAdministrador extends JDialog {
 			panelOpciones.setPreferredSize(new Dimension(1200, 1200));
 			
 			scrollPane = new JScrollPane(panelOpciones);
-			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			panelGeneral.add(scrollPane, BorderLayout.CENTER);
 			
@@ -234,7 +229,8 @@ public class VistaAdministrador extends JDialog {
 			btnIngresarPersonas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
-					ElegirPersonal elige = new ElegirPersonal();
+					ElegirPersonal elige = new ElegirPersonal(); 
+					elige.btnRegistrarEmpleado.setEnabled(false);
 					elige.setModal(true);
 					elige.setVisible(true);
 					setVisible(true);
@@ -282,44 +278,15 @@ public class VistaAdministrador extends JDialog {
 			btnGestionarClientes.setBounds(10, 225, 233, 27);
 			panelGestionCliente.add(btnGestionarClientes);
 			
-			panelGestionEmpleados = new JPanel();
-			panelGestionEmpleados.setLayout(null);
-			panelGestionEmpleados.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelGestionEmpleados.setBackground(new Color(248, 248, 255));
-			panelGestionEmpleados.setBounds(854, 75, 253, 263);
-			panelOpciones.add(panelGestionEmpleados);
-			
-			subPanelGestionEmpleados = new JPanel();
-			subPanelGestionEmpleados.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			subPanelGestionEmpleados.setBounds(10, 11, 233, 203);
-			panelGestionEmpleados.add(subPanelGestionEmpleados);
-			subPanelGestionEmpleados.setLayout(new BorderLayout(0, 0));
-			
 			ImageIcon logo4 = new ImageIcon(getClass().getResource("/imagenes/ImgGestionEmpleados.png")); 
 			Image img5 = logo4.getImage().getScaledInstance(233, 203, Image.SCALE_SMOOTH);
-			JLabel fondo5 = new JLabel(new ImageIcon(img5)); 
 			fondo2.setHorizontalAlignment(SwingConstants.CENTER);
-			subPanelGestionEmpleados.add(fondo5, BorderLayout.CENTER);
-			
-			btnGestionarEmpleados = new JButton("Gestionar Empleados");
-			btnGestionarEmpleados.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			btnGestionarEmpleados.setOpaque(true);
-			btnGestionarEmpleados.setForeground(new Color(255, 51, 0));
-			btnGestionarEmpleados.setFont(new Font("Sylfaen", Font.BOLD, 15));
-			btnGestionarEmpleados.setFocusPainted(false);
-			btnGestionarEmpleados.setBorderPainted(false);
-			btnGestionarEmpleados.setBackground(Color.WHITE);
-			btnGestionarEmpleados.setBounds(10, 225, 233, 27);
-			panelGestionEmpleados.add(btnGestionarEmpleados);
 			
 			panelAlmacen = new JPanel();
 			panelAlmacen.setLayout(null);
 			panelAlmacen.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panelAlmacen.setBackground(new Color(248, 248, 255));
-			panelAlmacen.setBounds(24, 386, 253, 263);
+			panelAlmacen.setBounds(861, 75, 253, 263);
 			panelOpciones.add(panelAlmacen);
 			
 			subPanelAlmacen = new JPanel();
@@ -352,7 +319,7 @@ public class VistaAdministrador extends JDialog {
 			panelVenta.setLayout(null);
 			panelVenta.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panelVenta.setBackground(new Color(248, 248, 255));
-			panelVenta.setBounds(299, 386, 253, 263);
+			panelVenta.setBounds(24, 386, 253, 263);
 			panelOpciones.add(panelVenta);
 			
 			subPanelVenta = new JPanel();
@@ -381,44 +348,15 @@ public class VistaAdministrador extends JDialog {
 			btnRealizarVenta.setBounds(10, 225, 233, 27);
 			panelVenta.add(btnRealizarVenta);
 			
-			panelRespaldoDatos = new JPanel();
-			panelRespaldoDatos.setLayout(null);
-			panelRespaldoDatos.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelRespaldoDatos.setBackground(new Color(248, 248, 255));
-			panelRespaldoDatos.setBounds(854, 386, 253, 263);
-			panelOpciones.add(panelRespaldoDatos);
-			
-			subPanelRespaldo = new JPanel();
-			subPanelRespaldo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			subPanelRespaldo.setBounds(10, 11, 233, 203);
-			panelRespaldoDatos.add(subPanelRespaldo);
-			subPanelRespaldo.setLayout(new BorderLayout(0, 0));
-			
 			ImageIcon logo7 = new ImageIcon(getClass().getResource("/imagenes/ImgRespaldoDatos.png")); 
 			Image img8 = logo7.getImage().getScaledInstance(233, 203, Image.SCALE_SMOOTH);
-			JLabel fondo8 = new JLabel(new ImageIcon(img8)); 
 			fondo2.setHorizontalAlignment(SwingConstants.CENTER);
-			subPanelRespaldo.add(fondo8, BorderLayout.CENTER);
-			
-			JButton btnRespaldarDatos = new JButton("Respaldar Datos");
-			btnRespaldarDatos.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			btnRespaldarDatos.setOpaque(true);
-			btnRespaldarDatos.setForeground(new Color(255, 51, 0));
-			btnRespaldarDatos.setFont(new Font("Sylfaen", Font.BOLD, 15));
-			btnRespaldarDatos.setFocusPainted(false);
-			btnRespaldarDatos.setBorderPainted(false);
-			btnRespaldarDatos.setBackground(Color.WHITE);
-			btnRespaldarDatos.setBounds(10, 225, 233, 27);
-			panelRespaldoDatos.add(btnRespaldarDatos);
 			
 			panelVerVentasDelivery = new JPanel();
 			panelVerVentasDelivery.setLayout(null);
 			panelVerVentasDelivery.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panelVerVentasDelivery.setBackground(new Color(248, 248, 255));
-			panelVerVentasDelivery.setBounds(577, 386, 253, 263);
+			panelVerVentasDelivery.setBounds(299, 386, 253, 263);
 			panelOpciones.add(panelVerVentasDelivery);
 			
 			JPanel subPanelVentasDelivery = new JPanel();
@@ -455,7 +393,7 @@ public class VistaAdministrador extends JDialog {
 			panel_2.setLayout(null);
 			
 			txtMenAdministrador = new JTextField();
-			txtMenAdministrador.setText("Men\u00FA Administrador");
+			txtMenAdministrador.setText("Men\u00FA Cajero");
 			txtMenAdministrador.setForeground(Color.WHITE);
 			txtMenAdministrador.setFont(new Font("Sylfaen", Font.BOLD, 17));
 			txtMenAdministrador.setFocusable(false);
