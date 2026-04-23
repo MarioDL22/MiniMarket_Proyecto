@@ -123,7 +123,7 @@ public class ElegirPersonal extends JDialog {
 				buttonPane.add(btnCerrar);
 			}
 		}
-		
+		//
 		ImageIcon otroIcon = new ImageIcon(getClass().getResource("/icons/people-check-icon.png")); 
 		setIconImage(otroIcon.getImage());
 	}
